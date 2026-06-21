@@ -1,6 +1,6 @@
 # Jeffrey Lim — Professional Portfolio & AI Chatbot
 
-A modern, single-page professional portfolio web application featuring an interactive AI chatbot powered by a Context-Aware Prompt Injection pipeline via the OpenAI API.
+A modern, single-page professional portfolio web application featuring an interactive AI chatbot powered by a Context-Augmented Generation pipeline via the OpenAI API.
 
 ## ✨ Features
 
@@ -54,14 +54,18 @@ The app will open at `http://localhost:8501`.
 jeffrey-portfolio/
 ├── app.py                # Main Streamlit application
 ├── profile.md            # Knowledge base (Jeffrey's profile)
-├── jeffrey.jpg           # Profile photo
 ├── requirements.txt      # Python dependencies
-├── .env                  # API keys (not committed)
-├── .env.example          # Environment template
+├── .env / .env.example   # API keys (not committed) / template
 ├── .gitignore            # Git exclusions
 ├── .streamlit/
 │   └── config.toml       # Streamlit theme configuration
+├── assets/
+│   ├── style.css         # Custom CSS stylesheet
+│   └── jeffrey.jpg       # Profile photo
+├── tests/
+│   └── test_app.py       # Pytest unit tests
 ├── claude.md             # Project documentation for AI assistants
+├── REVIEW.md             # Code review & enhancement notes
 └── README.md             # This file
 ```
 

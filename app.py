@@ -1,5 +1,5 @@
 import streamlit as st
-from openai import OpenAI
+from openai import OpenAI, APIError, AuthenticationError, RateLimitError
 import os
 from dotenv import load_dotenv
 
@@ -8,9 +8,11 @@ from dotenv import load_dotenv
 # ============================================================
 MODEL_NAME = "gpt-4o-mini"
 PROFILE_FILE = "profile.md"
-PHOTO_FILE = "jeffrey.jpg"
+PHOTO_FILE = "assets/jeffrey.jpg"
 PAGE_TITLE = "Jeffrey Lim | Technical Leader & Applied AI"
 PAGE_ICON = "🤖"
+MAX_HISTORY_MESSAGES = 20
+MAX_MESSAGES_PER_SESSION = 25
 
 STARTER_QUESTIONS = [
     "What are Jeffrey's AI projects?",
@@ -82,7 +84,7 @@ def load_css(file_name):
         with open(file_name, "r") as f:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
     except FileNotFoundError:
-        pass
+        st.warning("⚠️ Custom stylesheet not found. Using default Streamlit theme.")
 
 load_css("assets/style.css")
 
@@ -284,7 +286,7 @@ def render_chatbot():
     with col_right:
         st.header("💬 Ask My AI Assistant")
         st.caption(
-            "This chatbot runs a live RAG pipeline on Jeffrey's profile document "
+            "This chatbot uses a context-augmented pipeline on Jeffrey's profile document "
             "to answer your career, project, or training questions."
         )
 
@@ -306,58 +308,100 @@ def render_chatbot():
             with st.chat_message(message["role"]):
                 st.markdown(message["content"])
 
+        # --- Rate limit check ---
+        user_msg_count = sum(
+            1 for m in st.session_state.messages if m["role"] == "user"
+        )
+        remaining = MAX_MESSAGES_PER_SESSION - user_msg_count
+
+        if remaining <= 0:
+            st.info(
+                "📩 You've reached the message limit for this session. "
+                "Click **🗑️ Clear Chat** above to start a new conversation."
+            )
+            return
+
+        if remaining <= 5:
+            st.caption(
+                f"💬 {remaining} message{'s' if remaining != 1 else ''} remaining in this session"
+            )
+
         # --- Starter Question Buttons ---
+        starter_query = None
         if len(st.session_state.messages) <= 1:
             st.markdown("**💡 Try asking:**")
             cols = st.columns(len(STARTER_QUESTIONS))
             for i, question in enumerate(STARTER_QUESTIONS):
                 with cols[i]:
                     if st.button(question, key=f"starter_{i}", use_container_width=True):
-                        _handle_user_query(question)
-                        st.rerun()
+                        starter_query = question
 
         # --- Chat input ---
-        if user_query := st.chat_input(
+        user_query = st.chat_input(
             "e.g., What is Jeffrey's experience with Python automation?"
-        ):
-            _handle_user_query(user_query)
+        )
+
+        # --- Process query from either source ---
+        active_query = starter_query or user_query
+        if active_query:
+            # Display user message immediately
+            with st.chat_message("user"):
+                st.markdown(active_query)
+            st.session_state.messages.append(
+                {"role": "user", "content": active_query}
+            )
+
+            # Get and display AI response with visible spinner
+            with st.chat_message("assistant"):
+                with st.spinner("🤔 Thinking..."):
+                    response_text = _get_ai_response()
+                st.markdown(response_text)
+            st.session_state.messages.append(
+                {"role": "assistant", "content": response_text}
+            )
+
             st.rerun()
 
 
-def _handle_user_query(user_query: str):
-    """Process a user query through the OpenAI RAG pipeline with conversation history."""
-    # Append user message
-    st.session_state.messages.append({"role": "user", "content": user_query})
-
+def _get_ai_response():
+    """Call the OpenAI API with conversation context and return the response text."""
     if not client:
-        response_text = (
+        return (
             "I'm sorry, the OpenAI API key is not configured. "
             "Please set it up in the backend environment."
         )
-    else:
-        try:
-            system_instruction = SYSTEM_PROMPT_TEMPLATE.format(
-                context=profile_context
-            )
 
-            # Build conversation history for multi-turn support
-            messages = [{"role": "system", "content": system_instruction}]
-            for msg in st.session_state.messages[1:]:  # Skip welcome msg
-                messages.append({"role": msg["role"], "content": msg["content"]})
+    try:
+        system_instruction = SYSTEM_PROMPT_TEMPLATE.format(
+            context=profile_context
+        )
 
-            response = client.chat.completions.create(
-                model=MODEL_NAME,
-                messages=messages,
-            )
-            response_text = response.choices[0].message.content
+        # Build conversation history with sliding window
+        history = st.session_state.messages[1:]  # Skip welcome msg
+        if len(history) > MAX_HISTORY_MESSAGES:
+            history = history[-MAX_HISTORY_MESSAGES:]
 
-        except Exception as e:
-            response_text = f"An error occurred while calling the OpenAI API: {str(e)}"
+        messages = [{"role": "system", "content": system_instruction}]
+        for msg in history:
+            messages.append({"role": msg["role"], "content": msg["content"]})
 
-    # Append assistant response
-    st.session_state.messages.append(
-        {"role": "assistant", "content": response_text}
-    )
+        response = client.chat.completions.create(
+            model=MODEL_NAME,
+            messages=messages,
+        )
+        return response.choices[0].message.content
+
+    except AuthenticationError:
+        return "⚠️ API authentication failed. Please check the API key configuration."
+    except RateLimitError:
+        return "⚠️ API rate limit reached. Please try again in a moment."
+    except APIError as e:
+        return (
+            f"⚠️ The AI service returned an error (code {e.status_code}). "
+            "Please try again."
+        )
+    except Exception:
+        return "⚠️ An unexpected error occurred. Please try again later."
 
 
 render_chatbot()
