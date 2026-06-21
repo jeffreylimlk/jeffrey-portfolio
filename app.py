@@ -257,7 +257,7 @@ def render_portfolio():
             st.markdown(skills_html, unsafe_allow_html=True)
 
         # --- Education & Certifications ---
-        with st.expander("Education & Key Certifications"):
+        with st.expander("Education & Key Certifications", expanded=True):
             st.markdown(
                 """
             **Academic Credentials**
