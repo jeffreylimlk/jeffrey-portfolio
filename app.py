@@ -10,7 +10,7 @@ MODEL_NAME = "gpt-4o-mini"
 PROFILE_FILE = "profile.md"
 PHOTO_FILE = "assets/jeffrey.jpg"
 PAGE_TITLE = "Jeffrey Lim | Technical Leader & Applied AI"
-PAGE_ICON = "🤖"
+PAGE_ICON = None
 MAX_HISTORY_MESSAGES = 20
 MAX_MESSAGES_PER_SESSION = 25
 
@@ -33,7 +33,7 @@ SYSTEM_PROMPT_TEMPLATE = (
 )
 
 WELCOME_MESSAGE = (
-    "Hello! 👋 I'm Jeffrey's AI profile assistant. I can answer questions about his "
+    "Hello! I'm Jeffrey's AI profile assistant. I can answer questions about his "
     "technical projects, leadership background, certifications, or coaching philosophies. "
     "Try one of the suggestions below, or ask your own question!"
 )
@@ -69,11 +69,11 @@ def load_profile_context():
 
 profile_context = load_profile_context()
 if not profile_context:
-    st.error("⚠️ `profile.md` not found. The AI assistant will not have access to your context data.")
+    st.error("Warning: `profile.md` not found. The AI assistant will not have access to your context data.")
     profile_context = "Profile data is currently unavailable."
 
 if not api_key:
-    st.warning("⚠️ `OPENAI_API_KEY` is not set in your environment. Chatbot features will be disabled.")
+    st.warning("Warning: `OPENAI_API_KEY` is not set in your environment. Chatbot features will be disabled.")
 
 
 # ============================================================
@@ -84,7 +84,7 @@ def load_css(file_name):
         with open(file_name, "r") as f:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
     except FileNotFoundError:
-        st.warning("⚠️ Custom stylesheet not found. Using default Streamlit theme.")
+        st.warning("Warning: Custom stylesheet not found. Using default Streamlit theme.")
 
 load_css("assets/style.css")
 
@@ -107,18 +107,18 @@ def render_sidebar():
         if os.path.exists(PHOTO_FILE):
             st.image(PHOTO_FILE, width="stretch")
         else:
-            st.info("📷 Add your headshot as 'jeffrey.jpg'")
+            st.info("Add your headshot as 'jeffrey.jpg'")
 
         st.markdown(
             """
         **Technical Operations Leader & Applied AI Developer**
 
-        📧 lim_lee_keong@yahoo.com
-        📞 97967375
-        🔗 [LinkedIn](https://linkedin.com/in/jeffrey-lim-22174841)
-        💻 [GitHub - Data Science](https://github.com/jeffreylimlk/Data-Science-Project)
-        💻 [GitHub - Capstone](https://github.com/jeffreylimlk/Data-Science-Capstone-Project)
-        📍 Singapore
+        Email: lim_lee_keong@yahoo.com
+        Phone: 97967375
+        LinkedIn: [LinkedIn](https://linkedin.com/in/jeffrey-lim-22174841)
+        GitHub: [GitHub - Data Science](https://github.com/jeffreylimlk/Data-Science-Project)
+        GitHub: [GitHub - Capstone](https://github.com/jeffreylimlk/Data-Science-Capstone-Project)
+        Location: Singapore
         """,
             unsafe_allow_html=True,
         )
@@ -126,12 +126,12 @@ def render_sidebar():
         st.markdown("---")
         st.markdown("### Core Domains")
         domains = [
-            "🎯 Technical Coaching",
-            "🤖 Agentic RAG AI",
-            "🐍 Python Automation",
-            "📊 Power BI Dashboards",
-            "⚙️ Operations Leadership",
-            "🧠 Machine Learning",
+            "Technical Coaching",
+            "Agentic RAG AI",
+            "Python Automation",
+            "Power BI Dashboards",
+            "Operations Leadership",
+            "Machine Learning",
         ]
         domain_html = "".join(
             [f'<span class="domain-tag">{d}</span>' for d in domains]
@@ -150,7 +150,7 @@ st.markdown(
     <div class="hero-container">
         <div class="hero-title">Professional Portfolio</div>
         <div class="hero-subtitle">30 years of engineering leadership, now building with AI</div>
-        <span class="hero-tagline">🤖 AI-Powered Profile — Ask the chatbot anything →</span>
+        <span class="hero-tagline">AI-Powered Profile — Ask the chatbot anything →</span>
     </div>
 """,
     unsafe_allow_html=True,
@@ -170,7 +170,7 @@ def render_portfolio():
     """Render the left-column portfolio content."""
     with col_left:
         # --- Summary & Experience ---
-        with st.expander("💼 Summary & Experience Highlights", expanded=True):
+        with st.expander("Summary & Experience Highlights", expanded=True):
             st.markdown(
                 """
             **Technical Operations Leader and Applied AI Developer** with 30 years of
@@ -184,47 +184,47 @@ def render_portfolio():
             )
 
         # --- Applied AI Portfolio ---
-        with st.expander("🛠️ Applied AI & Software Portfolio", expanded=True):
+        with st.expander("Applied AI & Software Portfolio", expanded=True):
             st.markdown(
                 """
             <div class="project-card">
-                <h4>🔧 FSE Assistant — Agentic RAG AI Virtual Tech Support</h4>
+                <h4>FSE Assistant — Agentic RAG AI Virtual Tech Support</h4>
                 <p>Built a localized generative AI support framework utilizing Gemini APIs
                 to parse multi-block technical flowcharts and diagnose machine error codes
                 on standard CPU-bound workplace computers.</p>
-                <div class="project-impact">⚡ Runs on CPU-only hardware — no GPU required</div>
+                <div class="project-impact">Runs on CPU-only hardware — no GPU required</div>
                 <span class="tech-badge">Gemini API</span>
                 <span class="tech-badge">RAG</span>
                 <span class="tech-badge">Python</span>
                 <span class="tech-badge">Agentic AI</span>
             </div>
             <div class="project-card">
-                <h4>📚 FSE Assistant — RAG AI E-Library Manual</h4>
+                <h4>FSE Assistant — RAG AI E-Library Manual</h4>
                 <p>Developed an AI knowledge retrieval system using advanced semantic text
                 chunking and localized database indexing to dynamically query thousands of
                 pages of technical hardware manuals.</p>
-                <div class="project-impact">📄 Processes 1000s of pages of technical docs</div>
+                <div class="project-impact">Processes 1000s of pages of technical docs</div>
                 <span class="tech-badge">Semantic Chunking</span>
                 <span class="tech-badge">Embeddings</span>
                 <span class="tech-badge">Vector DB</span>
                 <span class="tech-badge">Python</span>
             </div>
             <div class="project-card">
-                <h4>🚀 SpaceX Operations Capstone</h4>
+                <h4>SpaceX Operations Capstone</h4>
                 <p>Programmed an end-to-end Python and SQL data pipeline to clean, process,
                 and dynamically visualize aerospace metrics and train predictive success models.</p>
-                <div class="project-impact">📈 End-to-end ML pipeline with predictive modeling</div>
+                <div class="project-impact">End-to-end ML pipeline with predictive modeling</div>
                 <span class="tech-badge">Python</span>
                 <span class="tech-badge">SQL</span>
                 <span class="tech-badge">Scikit-learn</span>
                 <span class="tech-badge">Data Viz</span>
             </div>
             <div class="project-card">
-                <h4>🏥 Applied ML Portfolio Projects</h4>
+                <h4>Applied ML Portfolio Projects</h4>
                 <p>Implemented deep learning CNNs for medical imaging tasks (COVID detection,
                 breast cancer prediction) and built regression/classification pipelines for
                 real estate pricing, climate modeling, and big data user classification.</p>
-                <div class="project-impact">🧠 Deep Learning + Traditional ML</div>
+                <div class="project-impact">Deep Learning + Traditional ML</div>
                 <span class="tech-badge">TensorFlow</span>
                 <span class="tech-badge">CNN</span>
                 <span class="tech-badge">Regression</span>
@@ -235,7 +235,7 @@ def render_portfolio():
             )
 
         # --- Skills Visualization ---
-        with st.expander("📊 Technical Skills", expanded=True):
+        with st.expander("Technical Skills", expanded=True):
             skills = [
                 ("AI & RAG Systems", 92),
                 ("Python Development", 90),
@@ -257,7 +257,7 @@ def render_portfolio():
             st.markdown(skills_html, unsafe_allow_html=True)
 
         # --- Education & Certifications ---
-        with st.expander("🎓 Education & Key Certifications", expanded=False):
+        with st.expander("Education & Key Certifications", expanded=False):
             st.markdown(
                 """
             **Academic Credentials**
@@ -265,13 +265,13 @@ def render_portfolio():
             * **Diploma with Merit (Electrical Engineering)** — Ngee Ann Polytechnic, Singapore
 
             **Professional Certifications**
-            * 🏅 Google TensorFlow Developer Certificate
-            * 🏅 Multi-Agent RAG with Gemini & LangChain
-            * 🏅 IBM AI Engineering Professional Certificate
-            * 🏅 Microsoft Certified: Power BI Data Analyst
-            * 🏅 DeepLearning.AI TensorFlow Developer Professional Certificate
-            * 🏅 IBM Data Science Professional Certificate
-            * 🏅 Generative AI for Data Scientists Specialization
+            * Google TensorFlow Developer Certificate
+            * Multi-Agent RAG with Gemini & LangChain
+            * IBM AI Engineering Professional Certificate
+            * Microsoft Certified: Power BI Data Analyst
+            * DeepLearning.AI TensorFlow Developer Professional Certificate
+            * IBM Data Science Professional Certificate
+            * Generative AI for Data Scientists Specialization
             """
             )
 
@@ -285,7 +285,7 @@ render_portfolio()
 def render_chatbot():
     """Render the right-column AI chatbot interface."""
     with col_right:
-        st.header("💬 Ask My AI Assistant")
+        st.header("Ask My AI Assistant")
         st.caption(
             "This chatbot uses a context-augmented pipeline on Jeffrey's profile document "
             "to answer your career, project, or training questions."
@@ -298,7 +298,7 @@ def render_chatbot():
             ]
 
         # --- Clear Chat Button ---
-        if st.button("🗑️ Clear Chat", key="clear_chat"):
+        if st.button("Clear Chat", key="clear_chat"):
             st.session_state.messages = [
                 {"role": "assistant", "content": WELCOME_MESSAGE}
             ]
@@ -317,20 +317,20 @@ def render_chatbot():
 
         if remaining <= 0:
             st.info(
-                "📩 You've reached the message limit for this session. "
-                "Click **🗑️ Clear Chat** above to start a new conversation."
+                "You've reached the message limit for this session. "
+                "Click **Clear Chat** above to start a new conversation."
             )
             return
 
         if remaining <= 5:
             st.caption(
-                f"💬 {remaining} message{'s' if remaining != 1 else ''} remaining in this session"
+                f"{remaining} message{'s' if remaining != 1 else ''} remaining in this session"
             )
 
         # --- Starter Question Buttons ---
         starter_query = None
         if len(st.session_state.messages) <= 1:
-            st.markdown("**💡 Try asking:**")
+            st.markdown("**Try asking:**")
             cols = st.columns(len(STARTER_QUESTIONS))
             for i, question in enumerate(STARTER_QUESTIONS):
                 with cols[i]:
@@ -354,7 +354,7 @@ def render_chatbot():
 
             # Get and display AI response with visible spinner
             with st.chat_message("assistant"):
-                with st.spinner("🤔 Thinking..."):
+                with st.spinner("Thinking..."):
                     response_text = _get_ai_response()
                 st.markdown(response_text)
             st.session_state.messages.append(
@@ -393,16 +393,16 @@ def _get_ai_response():
         return response.choices[0].message.content
 
     except AuthenticationError:
-        return "⚠️ API authentication failed. Please check the API key configuration."
+        return "Warning: API authentication failed. Please check the API key configuration."
     except RateLimitError:
-        return "⚠️ API rate limit reached. Please try again in a moment."
+        return "Warning: API rate limit reached. Please try again in a moment."
     except APIError as e:
         return (
-            f"⚠️ The AI service returned an error (code {e.status_code}). "
+            f"Warning: The AI service returned an error (code {e.status_code}). "
             "Please try again."
         )
     except Exception:
-        return "⚠️ An unexpected error occurred. Please try again later."
+        return "Warning: An unexpected error occurred. Please try again later."
 
 
 render_chatbot()
