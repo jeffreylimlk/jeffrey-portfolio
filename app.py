@@ -116,7 +116,8 @@ def render_sidebar():
         📧 lim_lee_keong@yahoo.com
         📞 97967375
         🔗 [LinkedIn](https://linkedin.com/in/jeffrey-lim-22174841)
-        💻 [GitHub](https://github.com/johnloh47/Data-Science-Capstone-Project)
+        💻 [GitHub - Data Science](https://github.com/jeffreylimlk/Data-Science-Project)
+        💻 [GitHub - Capstone](https://github.com/jeffreylimlk/Data-Science-Capstone-Project)
         📍 Singapore
         """,
             unsafe_allow_html=True,
