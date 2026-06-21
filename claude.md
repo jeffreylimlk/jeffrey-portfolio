@@ -30,6 +30,7 @@ The app is structured as modular functions in a single `app.py`:
 - Store sensitive configuration keys strictly in a local `.env` file; never hardcode the `OPENAI_API_KEY`.
 - Use explicit try-except handling for file I/O operations and external API requests.
 - Configuration constants (model name, prompts, etc.) live at the top of `app.py`.
+- No emojis in the webpage. 
 
 ## Chatbot Persona Guardrails
 - **Tone:** Grounded, professional, down-to-earth, and approachable. Mirror Jeffrey's real-world engineering background and coaching mindset. Avoid empty AI hype.
