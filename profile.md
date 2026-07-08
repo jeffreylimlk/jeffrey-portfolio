@@ -82,6 +82,6 @@ High-performing Technical Operations Leader and Applied AI Developer with 30 yea
 ---
 
 ## Professional Certifications (Consolidated)
-- **Advanced AI & RAG:** Multi-Agent RAG with Gemini & LangChain (Udemy, 2026) | AI Engineer Core Track: LLM, RAG, Agents (Udemy, 2026) | Generative AI for Data Scientists Specialization (Coursera, 2024) | Generative AI: Elevate Your Data Science Career (Coursera, 2024)
+- **Advanced AI & RAG:** AI Coder: Complete Claude Code & Coding Agents Course (Udemy, 2026) | Multi-Agent RAG with Gemini & LangChain (Udemy, 2026) | AI Engineer Core Track: LLM, RAG, Agents (Udemy, 2026) | Generative AI for Data Scientists Specialization (Coursera, 2024) | Generative AI: Elevate Your Data Science Career (Coursera, 2024)
 - **Machine Learning & Engineering:** TensorFlow Developer Certificate (Google, 2023) | DeepLearning.AI TensorFlow Developer Professional Certificate (Coursera, 2023) | IBM AI Engineering Professional Certificate (Coursera, 2024) | TensorFlow: Advanced Techniques Specialization (Coursera, 2023)
 - **Data Science & Analytics:** Microsoft Certified: Power BI Data Analyst Professional Certificate (Coursera, 2024) | IBM Data Science Professional Certificate (Coursera, 2023) | Big Data Specialization (Coursera) | 100 Days of Code: The Complete Python Pro Bootcamp (Udemy, 2022)
