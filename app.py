@@ -57,8 +57,14 @@ client = OpenAI(api_key=api_key) if api_key else None
 # ============================================================
 # DATA LOADING
 # ============================================================
+def get_file_mtime(filepath):
+    try:
+        return os.path.getmtime(filepath)
+    except OSError:
+        return 0
+
 @st.cache_data
-def load_profile_context():
+def load_profile_context(mtime=None):
     """Load the profile markdown file as the RAG knowledge base."""
     try:
         with open(PROFILE_FILE, "r", encoding="utf-8") as f:
@@ -67,7 +73,7 @@ def load_profile_context():
         return None
 
 
-profile_context = load_profile_context()
+profile_context = load_profile_context(get_file_mtime(PROFILE_FILE))
 if not profile_context:
     st.error("Warning: `profile.md` not found. The AI assistant will not have access to your context data.")
     profile_context = "Profile data is currently unavailable."
