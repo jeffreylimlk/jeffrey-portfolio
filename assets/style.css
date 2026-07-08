@@ -144,11 +144,11 @@ h3, h4 { color: #1E293B !important; font-weight: 600 !important; }
 }
 .project-card h4 {
     margin: 0 0 8px 0;
-    font-size: 1.05rem;
+    font-size: 1.15rem;
 }
 .project-card p {
     color: #64748B;
-    font-size: 0.92rem;
+    font-size: 1rem;
     line-height: 1.6;
     margin: 0 0 12px 0;
 }
@@ -180,7 +180,7 @@ h3, h4 { color: #1E293B !important; font-weight: 600 !important; }
     margin-bottom: 16px;
 }
 .skill-label {
-    font-size: 0.85rem;
+    font-size: 0.98rem;
     font-weight: 600;
     color: #1E293B;
     margin-bottom: 6px;
@@ -226,7 +226,7 @@ h3, h4 { color: #1E293B !important; font-weight: 600 !important; }
 /* ---- Expander Styling ---- */
 .streamlit-expanderHeader {
     font-weight: 600 !important;
-    font-size: 1rem !important;
+    font-size: 1.2rem !important;
 }
 
 /* ---- Smooth Scrolling ---- */
