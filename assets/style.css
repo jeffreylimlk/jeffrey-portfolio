@@ -224,9 +224,13 @@ h3, h4 { color: #1E293B !important; font-weight: 600 !important; }
 }
 
 /* ---- Expander Styling ---- */
-.streamlit-expanderHeader {
-    font-weight: 600 !important;
-    font-size: 1.2rem !important;
+.streamlit-expanderHeader,
+.streamlit-expanderHeader p,
+summary p,
+[data-testid="stExpander"] summary p {
+    font-size: 1.35rem !important;
+    font-weight: 700 !important;
+    color: #0F172A !important;
 }
 
 /* ---- Smooth Scrolling ---- */
