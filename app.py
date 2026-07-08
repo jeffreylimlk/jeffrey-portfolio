@@ -265,6 +265,7 @@ def render_portfolio():
             * **Diploma with Merit (Electrical Engineering)** — Ngee Ann Polytechnic, Singapore
 
             **Professional Certifications**
+            * AI Coder: Complete Claude Code & Coding Agents Course (Udemy, 2026)
             * Google TensorFlow Developer Certificate
             * Multi-Agent RAG with Gemini & LangChain
             * IBM AI Engineering Professional Certificate
